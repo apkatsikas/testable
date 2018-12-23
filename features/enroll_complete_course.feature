@@ -6,3 +6,4 @@ Scenario: Enroll and complete course
  Then I should see the enrollment thank you
  When I complete 4 lectures
  Then I should see all my courses completed
+ 
