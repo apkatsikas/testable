@@ -1,7 +1,6 @@
 require "capybara/cucumber"
 require "selenium-webdriver"
-require_relative "random_util"
-require_relative "wait_for_ajax"
+require "rspec"
 
 Capybara.configure do |config|
   config.run_server = false
