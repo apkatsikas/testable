@@ -24,13 +24,22 @@ When(/^I complete (\d+) lectures$/) do |course_count|
  @course_count = course_count
  click_link "Continue to Course"
  click_link "Start next lecture"
- @course_count.times { find("span", :text => "Complete and continue").click }
+ 
+ section_item_selector = "li.section-item"
+ expect(page).to have_css(section_item_selector)
+ section_items = find_all(section_item_selector)
+ 
+ (@course_count).times do |index|
+  find("span", :text => "Complete and continue").click
+  WaitForAjax.wait
+  if index  != @course_count - 1
+   expect(section_items[index][:class].include? "completed")
+  end
+ end
 end
 
 Then(/^I should see all my courses completed$/) do
- sleep 5
- find_all(".section-item li")[0..@course_count + 1].each do |item|
-  Kernel.puts item
-  expect(item[:class].include? "completed")
- end
+ expect(page).to have_content "Start next lecture" 
+ visit "/courses"
+ expect(page).to have_css("span.percentage", text: "100%")
 end
