@@ -13,11 +13,11 @@ Then(/^I should see the enrollment thank you$/) do
  expect(page).to have_content "Thanks for enrolling in this course!" 
 end
 
-When(/^I complete (\d+) lectures$/) do |course_count|
+When(/^I complete (\d+) lectures$/) do |lecture_count|
  click_link "Continue to Course"
  click_link "Start next lecture"
  
- LecturePage.new.complete_courses course_count
+ LecturePage.new.complete_lectures lecture_count
 end
 
 Then(/^I should see all my courses completed$/) do
